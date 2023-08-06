@@ -2,7 +2,7 @@ function getArrayParams(...arr) {
   let min;
   let max;
   let avg;
-
+  let sumCount = 0;
   // Проверяем, что цикл завершился без выхода за границы массива
   if (arr.length === 0) {
     console.log('Массив пустой');
@@ -12,10 +12,11 @@ function getArrayParams(...arr) {
   for (let i=0; i< arr.length; i++) {
     min = Math.min(...arr);
     max = Math.max(...arr);
-    avg = max / arr.length;
+    sumCount += arr[i];
+    avg = sumCount / arr.length;
   }
 
-  return { min, max, avg };
+  return { min, max, avg: avg.toFixed(2) };
 }
 
 
