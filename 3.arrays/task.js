@@ -3,9 +3,6 @@ function compareArrays(arr1, arr2) {
         .every((thisElement, ind) => thisElement === arr2[ind]);
 }
 
-compareArrays ([8, 98, 2], [8, 1, 2])
-
-
 
 const people = [
     {firstName: "Александр", secondName: "Карпов", age: 17, gender: "мужской"},
