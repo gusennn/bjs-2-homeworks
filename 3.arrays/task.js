@@ -1,5 +1,6 @@
 function compareArrays(arr1, arr2) {
-    const compareState = arr1.length === arr2.length &&  arr1.every((thisElement, ind) => thisElement === arr2[ind]);
+    const compareState = arr1.length === arr2.length &&  arr1
+        .every((thisElement, ind) => thisElement === arr2[ind]);
     return compareState;
 }
 
@@ -25,11 +26,7 @@ const people = [
 ]
 
 function getUsersNamesInAgeRange(users, gender) {
-    let ageAvg = users.filter ( genderItem => genderItem.gender === gender )
-                        .map( getAge => getAge.age )
-                        .reduce( (acc, item)=> acc + item)+1;
-    return ageAvg;
+    return  users.filter ( genderItem => genderItem.gender === gender )
+        .map( getAge => getAge.age )
+        .reduce( (acc, item, index, arr)=> acc + item / arr.length, 0)
 }
-
-getUsersNamesInAgeRange(people, "мужской");
-
