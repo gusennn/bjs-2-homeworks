@@ -1,18 +1,9 @@
 function compareArrays(arr1, arr2) {
-
-    if ( arr1.length !== arr2.length ) {
-        return console.log('разные значения массива');
-    }
-
-    const compareState = arr1.every((thisElement, ind) => thisElement === arr2[ind]);
-    if ( compareState ) {
-        console.log(compareState);
-    } else  {
-        console.log(compareState + ', разные индексы, хотя и одинаковые значения');
-    }
+    const compareState = arr1.length === arr2.length &&  arr1.every((thisElement, ind) => thisElement === arr2[ind]);
+    return compareState;
 }
 
-compareArrays ([8, 7, 2], [8, 1, 2])
+compareArrays ([8, 98, 2], [8, 1, 2])
 
 
 
@@ -34,18 +25,11 @@ const people = [
 ]
 
 function getUsersNamesInAgeRange(users, gender) {
-
-    console.log('\nФильтр по полу и  возрасту: ');
-    let filterPeoplesAge = users.filter( ageFilter => ageFilter.gender === gender)
-                                .map( peopleAge => peopleAge.firstName + ': ' + peopleAge.age)
-    console.log(filterPeoplesAge);
-
-    console.log('\nСредний возраст: ');
     let ageAvg = users.filter ( genderItem => genderItem.gender === gender )
                         .map( getAge => getAge.age )
                         .reduce( (acc, item)=> acc + item)+1;
-    console.log(ageAvg);
+    return ageAvg;
 }
 
-console.log(getUsersNamesInAgeRange(people, "мужской"));
+getUsersNamesInAgeRange(people, "мужской");
 
