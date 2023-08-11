@@ -1,7 +1,6 @@
 function compareArrays(arr1, arr2) {
-    const compareState = arr1.length === arr2.length &&  arr1
+    return arr1.length === arr2.length &&  arr1
         .every((thisElement, ind) => thisElement === arr2[ind]);
-    return compareState;
 }
 
 compareArrays ([8, 98, 2], [8, 1, 2])
