@@ -26,3 +26,4 @@ function getUsersNamesInAgeRange(users, gender) {
         .map( getAge => getAge.age )
         .reduce( (acc, item, index, arr)=> acc + item / arr.length, 0)
 }
+
