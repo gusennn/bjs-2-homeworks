@@ -21,19 +21,19 @@ function cachingDecoratorNew(func) {
 
 //Задача № 2
 function debounceDecoratorNew(func, delay) {
-    let timeoutId = null;
+    let debounceDecoratorTimeoutId = null;
     function wrapper(...args) {
-        if(timeoutId === null) {
+        if(debounceDecoratorTimeoutId === null) {
             func(...args);
             wrapper.count++;
         }
 
-        if(timeoutId) {  //Повторил код лекции
-            clearTimeout(timeoutId);
+        if(debounceDecoratorTimeoutId) {
+            clearTimeout(debounceDecoratorTimeoutId);
         }
 
-        timeoutId = setTimeout(() => {
-            timeoutId = true;
+        debounceDecoratorTimeoutId = setTimeout(() => {
+            debounceDecoratorTimeoutId = true;
             func(...args);
             wrapper.count++;
         }, delay);
