@@ -1,42 +1,53 @@
-let poolAnswers = document.getElementById('poll__answers');
-
-let xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://students.netoservices.ru/nestjs-backend/poll');
-xhr.addEventListener('load', function() {
-    if(xhr.readyState === xhr.DONE) {
-        if(xhr.status >= 400) {
-            setTimeout(() => {
-                return alert('Ошибка загрузки данных о вопросе');
-            }, 1000)
-        }
-        if(xhr.status === 200) {
-            const response = JSON.parse(xhr.responseText);
-            const poolTitleText = response.data.title;
-            const poolAnswersText = response.data.answers;
-
-            const poolTitle = document.getElementById('poll__title');
-            poolTitle.textContent = poolTitleText;
-
-            poolAnswersText.forEach(answer => {
-                createHTML(answer);
-            });
-
-            const btnAnswers = document.querySelectorAll('.poll__answer');
-            btnAnswers.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    alert('Спасибо, Ваш голос засчитан!');
-
-                })
-            })
-        }
+class AlarmClock {
+    constructor() {
+        this.alarmCollection = [];
+        this.intervalId = null;
     }
-})
-xhr.send();
 
-function createHTML(answer) {
-    const btnAnswer = document.createElement('button');
-    btnAnswer.classList.add('poll__answer');
-    btnAnswer.textContent = answer;
-    poolAnswers.appendChild(btnAnswer);
-    return btnAnswer;
+    addClock(time, callback) {
+        if(!time || !callback) {
+            throw new Error("Отсутствуют обязательные аргументы");
+        } else if(this.alarmCollection.some((alarm) => alarm.time === time)) {
+            console.warn("Уже присутствует звонок на это же время");
+        }
+        this.alarmCollection.push( {time, callback, canCall: true} );
+    }
+
+    removeClock(time) {
+        this.alarmCollection = this.alarmCollection.filter((alarm) => alarm.time !== time);
+    }
+
+    getCurrentFormattedTime() {
+        return new Date().toLocaleTimeString([],
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+    }
+
+    start() {
+        if(this.intervalId) {
+            return;
+        }
+        this.intervalId = setInterval( () => this.alarmCollection.forEach((alarm) => {
+            if(alarm.time === this.getCurrentFormattedTime() && alarm.canCall) {
+                alarm.canCall = false;
+                alarm.callback();
+            }
+        }), 1000)
+    }
+
+    stop() {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+    }
+
+    resetAllCalls() {
+        this.alarmCollection.forEach((alarm) => (alarm.canCall = true))
+    }
+
+    clearAlarms() {
+        this.stop();
+        this.alarmCollection = [];
+    }
 }
