@@ -1,7 +1,5 @@
 "use strict"
-"use strict"
 
-// Задание 1
 function solveEquation(a, b, c) {
   let arr = [];
   let d = b**2-4*a*c;
@@ -15,14 +13,13 @@ function solveEquation(a, b, c) {
 }
 solveEquation(1, 5, 4)
 
-// Задание 2
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
   if (isNaN(percent) || isNaN(contribution) || isNaN(amount)) {
     return false;
   }
-  let PercFormula = percent/100/12;
+  let PerkFormula = percent/100/12;
   let AmoFormula = amount - contribution;
-  let amountPerMonth = AmoFormula * (PercFormula + (PercFormula / (((1 + PercFormula)**countMonths) - 1)));
+  let amountPerMonth = AmoFormula * (PerkFormula + (PerkFormula / (((1 + PerkFormula)**countMonths) - 1)));
   let totalAmount = amountPerMonth * countMonths;
   return Number(totalAmount.toFixed(2));
 }
